@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_system/src/responsive/breakpoint_configuration.dart';
 
-import '../responsive/breakpoint_configuration.dart';
-import '../responsive/responsive_value.dart';
+import '../../src/responsive/responsive_value.dart';
 
 @immutable
 class SpacingTokens extends Equatable {

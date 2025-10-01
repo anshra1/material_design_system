@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-/// The 6 immutable seed colors that serve as the foundation for all other tokens.
+/// The 9 immutable seed colors that serve as the foundation for all other tokens.
 /// These are the single source of truth for the entire design system.
 class ReferenceTokens extends Equatable {
   /// The primary color of the brand
@@ -22,9 +22,16 @@ class ReferenceTokens extends Equatable {
   /// The error color for error states and feedback
   final Color error;
 
+  /// The success color for success states and feedback
+  final Color success;
+
+  /// The warning color for warning states and feedback
+  final Color warning;
+
+  /// The info color for info states and feedback
+  final Color info;
+
   /// Creates a new [ReferenceTokens] instance with the specified seed colors.
-  ///
-  /// These 6 colors are the immutable foundation of the entire design system.
   const ReferenceTokens({
     required this.primary,
     required this.secondary,
@@ -32,6 +39,9 @@ class ReferenceTokens extends Equatable {
     required this.neutral,
     required this.neutralVariant,
     required this.error,
+    required this.success,
+    required this.warning,
+    required this.info,
   });
 
   /// Creates a copy of this [ReferenceTokens] but with the given fields replaced.
@@ -42,6 +52,9 @@ class ReferenceTokens extends Equatable {
     Color? neutral,
     Color? neutralVariant,
     Color? error,
+    Color? success,
+    Color? warning,
+    Color? info,
   }) {
     return ReferenceTokens(
       primary: primary ?? this.primary,
@@ -50,6 +63,9 @@ class ReferenceTokens extends Equatable {
       neutral: neutral ?? this.neutral,
       neutralVariant: neutralVariant ?? this.neutralVariant,
       error: error ?? this.error,
+      success: success ?? this.success,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
     );
   }
 
@@ -62,13 +78,16 @@ class ReferenceTokens extends Equatable {
       neutral: _colorFromHex(json['neutral']),
       neutralVariant: _colorFromHex(json['neutralVariant']),
       error: _colorFromHex(json['error']),
+      success: _colorFromHex(json['success']),
+      warning: _colorFromHex(json['warning']),
+      info: _colorFromHex(json['info']),
     );
   }
 
   /// Converts this [ReferenceTokens] to a JSON object.
   Map<String, dynamic> toJson() {
     String rgbHex(Color c) {
-      final int argb = c.toARGB32();
+      final int argb = c.value;
       final String hex8 = argb.toRadixString(16).padLeft(8, '0');
       return '#${hex8.substring(2)}';
     }
@@ -80,6 +99,9 @@ class ReferenceTokens extends Equatable {
       'neutral': rgbHex(neutral),
       'neutralVariant': rgbHex(neutralVariant),
       'error': rgbHex(error),
+      'success': rgbHex(success),
+      'warning': rgbHex(warning),
+      'info': rgbHex(info),
     };
   }
 
@@ -99,6 +121,9 @@ class ReferenceTokens extends Equatable {
     neutral,
     neutralVariant,
     error,
+    success,
+    warning,
+    info,
   ];
 
   @override
@@ -109,7 +134,10 @@ class ReferenceTokens extends Equatable {
         'tertiary: $tertiary, '
         'neutral: $neutral, '
         'neutralVariant: $neutralVariant, '
-        'error: $error'
+        'error: $error, '
+        'success: $success, '
+        'warning: $warning, '
+        'info: $info'
         ')';
   }
 }

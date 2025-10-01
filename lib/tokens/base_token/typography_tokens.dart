@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../responsive/breakpoint_configuration.dart';
-import '../responsive/font_scaling_configuration.dart';
+import 'package:material_design_system/src/responsive/breakpoint_configuration.dart';
+import 'package:material_design_system/src/responsive/font_scaling_configuration.dart';
+
 import 'text_style_token.dart';
 
 @immutable

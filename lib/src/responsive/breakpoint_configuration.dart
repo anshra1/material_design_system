@@ -1,3 +1,4 @@
+
 import 'package:equatable/equatable.dart';
 
 /// A class to define the breakpoints for responsive design.

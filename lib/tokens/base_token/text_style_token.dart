@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../responsive/breakpoint_configuration.dart';
-import '../responsive/font_scaling_configuration.dart';
+import 'package:material_design_system/src/responsive/breakpoint_configuration.dart';
+import 'package:material_design_system/src/responsive/font_scaling_configuration.dart';
+
 
 /// A token representing a specific text style in the design system.
 @immutable
