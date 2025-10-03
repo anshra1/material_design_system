@@ -1,1 +1,100 @@
-import 'package:flutter/material.dart\';\nimport \'package:material_design_system/src/widgets/buttons/config/app_button_config.dart\';\nimport \'package:material_design_system/src/widgets/buttons/config/app_button_themes.dart\';\n\n/// Defines the position of the icon relative to the text within the button.\nenum ButtonIconPosition {\n  /// The icon is placed to the left of the text.\n  left,\n\n  /// The icon is placed to the right of the text.\n  right,\n}\n\n/// A reusable, configuration-driven primary button that supports an icon.\nclass PrimaryButtonWithIcon extends StatelessWidget {\n  const PrimaryButtonWithIcon({\n    required this.onPressed,\n    required this.text,\n    super.key,\n    this.icon,\n    this.iconPosition = ButtonIconPosition.left,\n    this.tooltip,\n    this.overrideConfig,\n  });\n\n  final VoidCallback? onPressed;\n  final String text;\n  final Widget? icon;\n  final ButtonIconPosition iconPosition;\n  final String? tooltip;\n  final AppButtonConfig? overrideConfig;\n\n  @override\n  Widget build(BuildContext context) {\n    // 1. Get the base configuration from the theme factory.\n    final baseConfig = AppButtonThemes.primary(context);\n\n    // 2. Apply any local overrides provided by the developer.\n    final finalConfig = overrideConfig != null\n        ? baseConfig.copyWith(\n            backgroundColor: overrideConfig!.backgroundColor,\n            foregroundColor: overrideConfig!.foregroundColor,\n            overlayColor: overrideConfig!.overlayColor,\n            elevation: overrideConfig!.elevation,\n            padding: overrideConfig!.padding,\n            textStyle: overrideConfig!.textStyle,\n            shape: overrideConfig!.shape,\n            side: overrideConfig!.side,\n            iconGap: overrideConfig!.iconGap,\n          )\n        : baseConfig;\n\n    // 3. Validate the shape configuration.\n    final ShapeBorder? finalShape = finalConfig.shape;\n    if (finalShape != null && finalShape is! OutlinedBorder) {\n      throw ArgumentError(\n        \'PrimaryButtonWithIcon received a shape of type \${finalShape.runtimeType}, which is not an OutlinedBorder. \'\n        \'ElevatedButton requires an OutlinedBorder. For other shapes, consider creating a dedicated component.\',\n      );\n    }\n\n    // 4. Build the button content.\n    final iconGap = finalConfig.iconGap ?? 8.0;\n    final textWidget = Text(text); // ButtonStyle will handle the text style\n    final List<Widget> children = [];\n    if (icon != null) {\n      final iconSpacing = SizedBox(width: iconGap);\n      if (iconPosition == ButtonIconPosition.left) {\n        children.addAll([icon!, iconSpacing, textWidget]);\n      } else {\n        children.addAll([textWidget, iconSpacing, icon!]);\n      }\n    } else {\n      children.add(textWidget);\n    }\n\n    // 5. Render the final button using the resolved configuration.\n    final button = ElevatedButton(\n      onPressed: onPressed,\n      style: ButtonStyle(\n        backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),\n        foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),\n        overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),\n        elevation: WidgetStateProperty.all(finalConfig.elevation),\n        padding: WidgetStateProperty.all(finalConfig.padding),\n        textStyle: WidgetStateProperty.all(finalConfig.textStyle),\n        shape: WidgetStateProperty.all(finalShape as OutlinedBorder?),\n        side: WidgetStateProperty.all(finalConfig.side),\n      ),\n      child: Row(\n        mainAxisSize: MainAxisSize.min,\n        children: children,\n      ),\n    );\n\n    // 6. Apply tooltip if provided.\n    if (tooltip != null) {\n      return Tooltip(\n        message: tooltip!,\n        child: button,\n      );\n    }\n\n    return button;\n  }\n}\n
+import 'package:flutter/material.dart';
+import 'package:material_design_system/src/widgets/buttons/config/app_button_config.dart';
+import 'package:material_design_system/src/widgets/buttons/config/app_button_themes.dart';
+
+/// Defines the position of the icon relative to the text within the button.
+enum ButtonIconPosition {
+  /// The icon is placed to the left of the text.
+  left,
+
+  /// The icon is placed to the right of the text.
+  right,
+}
+
+/// A reusable, configuration-driven primary button that supports an icon.
+class PrimaryButtonWithIcon extends StatelessWidget {
+  const PrimaryButtonWithIcon({
+    required this.onPressed,
+    required this.text,
+    super.key,
+    this.icon,
+    this.iconPosition = ButtonIconPosition.left,
+    this.tooltip,
+    this.overrideConfig,
+  });
+
+  final VoidCallback? onPressed;
+  final String text;
+  final Widget? icon;
+  final ButtonIconPosition iconPosition;
+  final String? tooltip;
+  final AppButtonConfig? overrideConfig;
+
+  @override
+  Widget build(BuildContext context) {
+    // 1. Get the base configuration from the theme factory.
+    final baseConfig = AppButtonThemes.primary(context);
+
+    // 2. Apply any local overrides provided by the developer.
+    final finalConfig = overrideConfig != null
+        ? baseConfig.copyWith(
+            backgroundColor: overrideConfig!.backgroundColor,
+            foregroundColor: overrideConfig!.foregroundColor,
+            overlayColor: overrideConfig!.overlayColor,
+            elevation: overrideConfig!.elevation,
+            padding: overrideConfig!.padding,
+            textStyle: overrideConfig!.textStyle,
+            shape: overrideConfig!.shape,
+            side: overrideConfig!.side,
+            iconGap: overrideConfig!.iconGap,
+          )
+        : baseConfig;
+
+    // 3. Validate the shape configuration.
+    final finalShape = finalConfig.shape;
+    if (finalShape != null && finalShape is! OutlinedBorder) {
+      throw ArgumentError(
+        'PrimaryButtonWithIcon received a shape of type ${finalShape.runtimeType}, which is not an OutlinedBorder. '
+        'ElevatedButton requires an OutlinedBorder. For other shapes, consider creating a dedicated component.',
+      );
+    }
+
+    // 4. Build the button content.
+    final iconGap = finalConfig.iconGap ?? 8.0;
+    final textWidget = Text(text); // ButtonStyle will handle the text style
+    final children = <Widget>[];
+    if (icon != null) {
+      final iconSpacing = SizedBox(width: iconGap);
+      if (iconPosition == ButtonIconPosition.left) {
+        children.addAll([icon!, iconSpacing, textWidget]);
+      } else {
+        children.addAll([textWidget, iconSpacing, icon!]);
+      }
+    } else {
+      children.add(textWidget);
+    }
+
+    // 5. Render the final button using the resolved configuration.
+    final button = ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),
+        foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),
+        overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),
+        elevation: WidgetStateProperty.all(finalConfig.elevation),
+        padding: WidgetStateProperty.all(finalConfig.padding),
+        textStyle: WidgetStateProperty.all(finalConfig.textStyle),
+        shape: WidgetStateProperty.all(finalShape as OutlinedBorder?),
+        side: WidgetStateProperty.all(finalConfig.side),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: children),
+    );
+
+    // 6. Apply tooltip if provided.
+    if (tooltip != null) {
+      return Tooltip(message: tooltip, child: button);
+    }
+
+    return button;
+  }
+}
