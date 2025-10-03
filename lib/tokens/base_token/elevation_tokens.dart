@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 // A simple class to hold the properties of a single shadow layer
 class _ShadowLayer {
@@ -84,5 +84,13 @@ class ElevationTokens extends Equatable {
   }
 
   @override
-  List<Object?> get props => [level0, level1, level2, level3, level4, level5, shadowColor];
+  List<Object?> get props => [
+    level0,
+    level1,
+    level2,
+    level3,
+    level4,
+    level5,
+    shadowColor,
+  ];
 }

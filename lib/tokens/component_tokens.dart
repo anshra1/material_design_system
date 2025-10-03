@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_system/tokens/base_token/typography_tokens.dart';
 import 'package:material_design_system/tokens/components/app_bar_tokens.dart';
 import 'package:material_design_system/tokens/components/button_tokens.dart';
 import 'package:material_design_system/tokens/components/card_tokens.dart';
@@ -10,9 +11,6 @@ import 'package:material_design_system/tokens/components/navigation_tokens.dart'
 import 'package:material_design_system/tokens/components/surface_tokens.dart';
 import 'package:material_design_system/tokens/components/text_field_tokens.dart';
 import 'package:material_design_system/tokens/system_tokens.dart';
-import 'package:material_design_system/tokens/base_token/typography_tokens.dart';
-
-
 
 @immutable
 class ComponentTokens extends Equatable {
@@ -48,7 +46,9 @@ class ComponentTokens extends Equatable {
         foregroundColor: system.onPrimaryContainer,
         shadowColor: const Color(0x00000000),
         surfaceTintColor: system.surfaceTint,
-        titleTextStyle: typography.getTitleLarge().copyWith(color: system.onPrimaryContainer),
+        titleTextStyle: typography.getTitleLarge().copyWith(
+          color: system.onPrimaryContainer,
+        ),
       ),
       button: ButtonTokens(
         elevatedButtonBackgroundColor: system.primary,
@@ -66,7 +66,9 @@ class ComponentTokens extends Equatable {
         shadowColor: const Color(0x00000000),
         surfaceTintColor: system.surfaceTint,
         titleTextStyle: typography.getBodyLarge().copyWith(color: system.onSurface),
-        subtitleTextStyle: typography.getBodyMedium().copyWith(color: system.onSurfaceVariant),
+        subtitleTextStyle: typography.getBodyMedium().copyWith(
+          color: system.onSurfaceVariant,
+        ),
       ),
       chip: ChipTokens(
         backgroundColor: system.surfaceVariant,
@@ -79,7 +81,9 @@ class ComponentTokens extends Equatable {
         backgroundColor: system.surface,
         surfaceTintColor: system.surfaceTint,
         titleTextStyle: typography.getHeadlineSmall().copyWith(color: system.onSurface),
-        contentTextStyle: typography.getBodyMedium().copyWith(color: system.onSurfaceVariant),
+        contentTextStyle: typography.getBodyMedium().copyWith(
+          color: system.onSurfaceVariant,
+        ),
       ),
       fab: FabTokens(
         backgroundColor: system.primary,
@@ -95,8 +99,12 @@ class ComponentTokens extends Equatable {
         navigationRailBackgroundColor: system.surface,
         navigationRailForegroundColor: system.onSurfaceVariant,
         navigationRailIndicatorColor: system.primaryContainer,
-        navigationBarLabelTextStyle: typography.getLabelMedium().copyWith(color: system.onSurfaceVariant),
-        navigationRailLabelTextStyle: typography.getLabelMedium().copyWith(color: system.onSurfaceVariant),
+        navigationBarLabelTextStyle: typography.getLabelMedium().copyWith(
+          color: system.onSurfaceVariant,
+        ),
+        navigationRailLabelTextStyle: typography.getLabelMedium().copyWith(
+          color: system.onSurfaceVariant,
+        ),
       ),
       surface: SurfaceTokens(
         surfaceContainerColor: system.surfaceContainer,
@@ -143,14 +151,14 @@ class ComponentTokens extends Equatable {
 
   @override
   List<Object?> get props => [
-        appBar,
-        button,
-        card,
-        chip,
-        dialog,
-        fab,
-        navigation,
-        surface,
-        textField,
-      ];
+    appBar,
+    button,
+    card,
+    chip,
+    dialog,
+    fab,
+    navigation,
+    surface,
+    textField,
+  ];
 }

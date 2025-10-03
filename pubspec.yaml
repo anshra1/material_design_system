@@ -1,7 +1,7 @@
 name: material_design_system
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: null
 
 environment:
   sdk: '>=3.8.1 <4.0.0'
@@ -11,10 +11,10 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  gap: ^3.0.1
   material_color_utilities: ^0.11.1
 
 dev_dependencies:
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-

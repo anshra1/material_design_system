@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_system/theme/md_theme.dart';
+import 'package:material_design_system/theme/md_theme_token.dart';
 import 'package:material_design_system/tokens/system_tokens.dart';
 
 /// An [InheritedWidget] that provides the design system's tokens to the widget
 /// tree.
 /// To access the tokens, use `MdThemeWidget.of(context)`.
 class MdThemeWidget extends InheritedWidget {
-  const MdThemeWidget({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  const MdThemeWidget({super.key, required this.data, required super.child});
 
   /// The theme data, which can be a single theme or a light/dark pair.
-  final MdTheme data;
+  final MdThemeToken data;
 
   /// Returns the resolved [SystemTokens] for the current build context.
   ///
@@ -23,11 +19,9 @@ class MdThemeWidget extends InheritedWidget {
     final mdThemeWidget = context.dependOnInheritedWidgetOfExactType<MdThemeWidget>();
     if (mdThemeWidget == null) {
       throw FlutterError(
-        'MdThemeWidget not found in context. Make sure to wrap your app in a '
-        'MdThemeWidget.',
+        'MdThemeWidget not found in context. Make sure to wrap your app in a MdThemeWidget.',
       );
     }
-    // The widget's logic is now simpler! It just calls resolve on the data object.
     return mdThemeWidget.data.resolve(context);
   }
 
