@@ -3,20 +3,20 @@ import 'package:material_design_system/material_design_system.dart';
 
 void main() {
   // 1. Instantiate the desired generators.
-  final lightGenerator = StandardLightThemeGenerator();
-  final darkGenerator = StandardDarkThemeGenerator();
+  const lightGenerator = StandardLightThemeGenerator();
+  const darkGenerator = StandardDarkThemeGenerator();
 
   // 2. Define the 9 seed colors for the LIGHT theme.
-  final lightSeeds = ReferenceTokens(
-    primary: const Color(0xFF1877F2), // Facebook Blue
-    secondary: const Color(0xFF3B5998), // Chinese Blue
-    tertiary: const Color(0xFF8B9DC3), // Ceil
-    neutral: const Color(0xFFF0F2F5), // Athens Gray
-    neutralVariant: const Color(0xFFDFE3EE), // Azureish White
-    error: const Color(0xFFB3261E),
-    success: const Color(0xFF4CAF50),
-    warning: const Color(0xFFFFC107),
-    info: const Color(0xFF2196F3),
+  const lightSeeds = ReferenceTokens(
+    primary: Color(0xFF1877F2), // Facebook Blue
+    secondary: Color(0xFF3B5998), // Chinese Blue
+    tertiary: Color(0xFF8B9DC3), // Ceil
+    neutral: Color(0xFFF0F2F5), // Athens Gray
+    neutralVariant: Color(0xFFDFE3EE), // Azureish White
+    error: Color(0xFFB3261E),
+    success: Color(0xFF4CAF50),
+    warning: Color(0xFFFFC107),
+    info: Color(0xFF2196F3),
   );
 
   // 4. Generate the SystemTokens for both light and dark themes.
@@ -29,7 +29,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.theme});
+  const MyApp({required this.theme, super.key});
 
   final MdThemeToken theme;
 
@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
               _ColorChip(name: 'On Error', color: md.sys.onError),
             ],
           ),
-          const Divider(height: 32.0),
+          const Divider(height: 32),
 
           // Base tokens demo
           Text('Base Tokens', style: md.typ.getHeadlineSmall(context)),
@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
             onColor: md.sys.onTertiary,
           ),
 
-          const Divider(height: 32.0),
+          const Divider(height: 32),
 
           // Component tokens demo
           Text('Component Tokens', style: md.typ.getHeadlineSmall(context)),
@@ -205,7 +205,7 @@ class _ColorChip extends StatelessWidget {
       label: Text(name, style: TextStyle(color: onColor)),
       backgroundColor: color,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: onColor.withOpacity(0.5)),
       ),
     );
