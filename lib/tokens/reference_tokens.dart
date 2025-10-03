@@ -4,6 +4,34 @@ import 'package:flutter/material.dart';
 /// The 9 immutable seed colors that serve as the foundation for all other tokens.
 /// These are the single source of truth for the entire design system.
 class ReferenceTokens extends Equatable {
+  /// Creates a new [ReferenceTokens] instance with the specified seed colors.
+  const ReferenceTokens({
+    required this.primary,
+    required this.secondary,
+    required this.tertiary,
+    required this.neutral,
+    required this.neutralVariant,
+    required this.error,
+    required this.success,
+    required this.warning,
+    required this.info,
+  });
+
+  /// Creates a [ReferenceTokens] from a JSON object.
+  factory ReferenceTokens.fromJson(Map<String, dynamic> json) {
+    return ReferenceTokens(
+      primary: _colorFromHex(json['primary'] as String),
+      secondary: _colorFromHex(json['secondary'] as String),
+      tertiary: _colorFromHex(json['tertiary'] as String),
+      neutral: _colorFromHex(json['neutral'] as String),
+      neutralVariant: _colorFromHex(json['neutralVariant'] as String),
+      error: _colorFromHex(json['error'] as String),
+      success: _colorFromHex(json['success'] as String),
+      warning: _colorFromHex(json['warning'] as String),
+      info: _colorFromHex(json['info'] as String),
+    );
+  }
+
   /// The primary color of the brand
   final Color primary;
 
@@ -31,19 +59,6 @@ class ReferenceTokens extends Equatable {
   /// The info color for info states and feedback
   final Color info;
 
-  /// Creates a new [ReferenceTokens] instance with the specified seed colors.
-  const ReferenceTokens({
-    required this.primary,
-    required this.secondary,
-    required this.tertiary,
-    required this.neutral,
-    required this.neutralVariant,
-    required this.error,
-    required this.success,
-    required this.warning,
-    required this.info,
-  });
-
   /// Creates a copy of this [ReferenceTokens] but with the given fields replaced.
   ReferenceTokens copyWith({
     Color? primary,
@@ -69,26 +84,11 @@ class ReferenceTokens extends Equatable {
     );
   }
 
-  /// Creates a [ReferenceTokens] from a JSON object.
-  factory ReferenceTokens.fromJson(Map<String, dynamic> json) {
-    return ReferenceTokens(
-      primary: _colorFromHex(json['primary']),
-      secondary: _colorFromHex(json['secondary']),
-      tertiary: _colorFromHex(json['tertiary']),
-      neutral: _colorFromHex(json['neutral']),
-      neutralVariant: _colorFromHex(json['neutralVariant']),
-      error: _colorFromHex(json['error']),
-      success: _colorFromHex(json['success']),
-      warning: _colorFromHex(json['warning']),
-      info: _colorFromHex(json['info']),
-    );
-  }
-
   /// Converts this [ReferenceTokens] to a JSON object.
   Map<String, dynamic> toJson() {
     String rgbHex(Color c) {
-      final int argb = c.value;
-      final String hex8 = argb.toRadixString(16).padLeft(8, '0');
+      final argb = c.value;
+      final hex8 = argb.toRadixString(16).padLeft(8, '0');
       return '#${hex8.substring(2)}';
     }
 
@@ -106,9 +106,9 @@ class ReferenceTokens extends Equatable {
   }
 
   static Color _colorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
-      hexColor = "FF$hexColor";
+      hexColor = 'FF$hexColor';
     }
     return Color(int.parse(hexColor, radix: 16));
   }

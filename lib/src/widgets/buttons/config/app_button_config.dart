@@ -6,18 +6,6 @@ import 'package:flutter/material.dart';
 /// This is a pure Dart class with no Flutter dependencies beyond core types.
 @immutable
 class AppButtonConfig {
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final Color? overlayColor; // For splash/highlight effects
-  final double? elevation;
-  final EdgeInsetsGeometry? padding;
-  final TextStyle? textStyle;
-  final BorderSide? side;
-  final ShapeBorder? shape;
-
-  /// Horizontal space between icon and text when both are present
-  final double? iconGap;
-
   const AppButtonConfig({
     this.backgroundColor,
     this.foregroundColor,
@@ -29,6 +17,17 @@ class AppButtonConfig {
     this.shape,
     this.iconGap,
   });
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? overlayColor; 
+  final double? elevation;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? textStyle;
+  final BorderSide? side;
+  final ShapeBorder? shape;
+
+  /// Horizontal space between icon and text when both are present
+  final double? iconGap;
 
   /// Creates a new config by overriding existing properties.
   AppButtonConfig copyWith({
