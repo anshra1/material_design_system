@@ -78,6 +78,8 @@ class PrimaryButtonWithIcon extends StatelessWidget {
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(finalConfig.maximumSize),
+        maximumSize: WidgetStateProperty.all(finalConfig.maximumSize),
         backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),
         foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),
         overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),

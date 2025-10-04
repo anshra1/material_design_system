@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_system/tokens/style_token.dart';
 
 // A simple class to hold the properties of a single shadow layer
 class _ShadowLayer {
@@ -36,15 +37,21 @@ class ElevationTokens extends Equatable {
   final double level5;
   final Color shadowColor;
 
-  const ElevationTokens({
-    this.level0 = 0.0,
-    this.level1 = 1.0,
-    this.level2 = 3.0,
-    this.level3 = 6.0,
-    this.level4 = 8.0,
-    this.level5 = 12.0,
+   ElevationTokens({
+    StyleToken? style,
+    double? level0,
+    double? level1,
+    double? level2,
+    double? level3,
+    double? level4,
+    double? level5,
     this.shadowColor = Colors.black,
-  });
+  }) : level0 = level0 ?? 0.0,
+       level1 = level1 ?? style?.elevationLow ?? 1.0,
+       level2 = level2 ?? (style?.elevationLow ?? 1.0) * 2,
+       level3 = level3 ?? style?.elevationMedium ?? 3.0,
+       level4 = level4 ?? (style?.elevationMedium ?? 3.0) * 2,
+       level5 = level5 ?? style?.elevationHigh ?? 6.0;
 
   /// Generates a list of [BoxShadow]s for a given elevation level.
   List<BoxShadow> getShadows(int level) {

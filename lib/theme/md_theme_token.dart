@@ -30,16 +30,16 @@ class MdThemeToken extends Equatable {
     ShapeTokens? shapeTokens,
     SpacingTokens? spacingTokens,
     MotionTokens? motionTokens,
-  }) : typ = typographyTokens ?? const TypographyTokens(),
-       elevation = elevationTokens ?? const ElevationTokens(),
-       sha = shapeTokens ?? const ShapeTokens(),
-       space = spacingTokens ?? const SpacingTokens(),
+  }) : typ = typographyTokens ??  TypographyTokens(),
+       elevation = elevationTokens ??  ElevationTokens(),
+       sha = shapeTokens ??  ShapeTokens(),
+       space = spacingTokens ??  SpacingTokens(),
        motion = motionTokens ?? const MotionTokens(),
        com =
            componentTokens ??
            ComponentTokens.from(
              system: sys,
-             typography: typographyTokens ?? const TypographyTokens(),
+             typography: typographyTokens ??  TypographyTokens(),
            );
 
   SystemTokens resolve(BuildContext context) => sys;

@@ -1,22 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_system/src/responsive/breakpoint_configuration.dart';
-
-import '../../src/responsive/responsive_value.dart';
+import 'package:material_design_system/src/responsive/responsive_value.dart';
+import 'package:material_design_system/tokens/style_token.dart';
 
 @immutable
 class SpacingTokens extends Equatable {
-  final ResponsiveValue<double> _extraSmall;
-  final ResponsiveValue<double> _small;
-  final ResponsiveValue<double> _medium;
-  final ResponsiveValue<double> _large;
-  final ResponsiveValue<double> _extraLarge;
-  final ResponsiveValue<double> _extraExtraLarge;
-  final ResponsiveValue<double> _extraExtraExtraLarge;
-
-  final BreakpointConfiguration breakpoints;
-
-  const SpacingTokens({
+  SpacingTokens({
+    StyleToken? style,
     ResponsiveValue<double>? extraSmall,
     ResponsiveValue<double>? small,
     ResponsiveValue<double>? medium,
@@ -26,19 +17,63 @@ class SpacingTokens extends Equatable {
     ResponsiveValue<double>? extraExtraExtraLarge,
     this.breakpoints = const BreakpointConfiguration(),
   }) : _extraSmall =
-           extraSmall ?? const ResponsiveValue(mobile: 4.0, tablet: 5.0, desktop: 6.0),
-       _small = small ?? const ResponsiveValue(mobile: 8.0, tablet: 10.0, desktop: 12.0),
+           extraSmall ??
+           ResponsiveValue(
+             mobile: style?.spacingExtraSmall ?? 4,
+             tablet: (style?.spacingExtraSmall ?? 4) * 1.25,
+             desktop: (style?.spacingExtraSmall ?? 4) * 1.5,
+           ),
+       _small =
+           small ??
+           ResponsiveValue(
+             mobile: style?.spacingSmall ?? 8,
+             tablet: (style?.spacingSmall ?? 8) * 1.25,
+             desktop: (style?.spacingSmall ?? 8) * 1.5,
+           ),
        _medium =
-           medium ?? const ResponsiveValue(mobile: 16.0, tablet: 20.0, desktop: 24.0),
-       _large = large ?? const ResponsiveValue(mobile: 24.0, tablet: 30.0, desktop: 36.0),
+           medium ??
+           ResponsiveValue(
+             mobile: style?.spacingMedium ?? 16,
+             tablet: (style?.spacingMedium ?? 16) * 1.25,
+             desktop: (style?.spacingMedium ?? 16) * 1.5,
+           ),
+       _large =
+           large ??
+           ResponsiveValue(
+             mobile: style?.spacingLarge ?? 24,
+             tablet: (style?.spacingLarge ?? 24) * 1.25,
+             desktop: (style?.spacingLarge ?? 24) * 1.5,
+           ),
        _extraLarge =
-           extraLarge ?? const ResponsiveValue(mobile: 32.0, tablet: 40.0, desktop: 48.0),
+           extraLarge ??
+           ResponsiveValue(
+             mobile: style?.spacingExtraLarge ?? 32,
+             tablet: (style?.spacingExtraLarge ?? 32) * 1.25,
+             desktop: (style?.spacingExtraLarge ?? 32) * 1.5,
+           ),
        _extraExtraLarge =
            extraExtraLarge ??
-           const ResponsiveValue(mobile: 48.0, tablet: 60.0, desktop: 72.0),
+           ResponsiveValue(
+             mobile: (style?.spacingExtraLarge ?? 32) * 1.5,
+             tablet: (style?.spacingExtraLarge ?? 32) * 1.5 * 1.25,
+             desktop: (style?.spacingExtraLarge ?? 32) * 1.5 * 1.5,
+           ),
        _extraExtraExtraLarge =
            extraExtraExtraLarge ??
-           const ResponsiveValue(mobile: 64.0, tablet: 80.0, desktop: 96.0);
+           ResponsiveValue(
+             mobile: (style?.spacingExtraLarge ?? 32) * 2.0,
+             tablet: (style?.spacingExtraLarge ?? 32) * 2.0 * 1.25,
+             desktop: (style?.spacingExtraLarge ?? 32) * 2.0 * 1.5,
+           );
+  final ResponsiveValue<double> _extraSmall;
+  final ResponsiveValue<double> _small;
+  final ResponsiveValue<double> _medium;
+  final ResponsiveValue<double> _large;
+  final ResponsiveValue<double> _extraLarge;
+  final ResponsiveValue<double> _extraExtraLarge;
+  final ResponsiveValue<double> _extraExtraExtraLarge;
+
+  final BreakpointConfiguration breakpoints;
 
   double extraSmall([BuildContext? context]) =>
       context == null ? _extraSmall.mobile : _extraSmall.resolve(context, breakpoints);

@@ -4,7 +4,6 @@ import 'package:material_design_system/material_design_system.dart';
 void main() {
   // 1. Instantiate the desired generators.
   const lightGenerator = StandardLightThemeGenerator();
-  const darkGenerator = StandardDarkThemeGenerator();
 
   // 2. Define the 9 seed colors for the LIGHT theme.
   const lightSeeds = ReferenceTokens(
@@ -40,15 +39,8 @@ class MyApp extends StatelessWidget {
       data: theme,
       child: MaterialApp(
         title: 'Material Design System Example',
+        theme: ThemeData.light(),
         // 7. Build ThemeData from ColorScheme converted from SystemTokens.
-        theme: ThemeData.from(
-          colorScheme: SystemTokenToColorSchemeConverter.convert(
-            theme.sys,
-            Brightness.light,
-          ),
-          useMaterial3: true,
-        ),
-
         themeMode: ThemeMode.light,
         home: const HomePage(),
       ),
@@ -73,114 +65,108 @@ class HomePage extends StatelessWidget {
         shadowColor: md.com.appBar.shadowColor,
         title: const Text('MD System Showcase'),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(md.space.medium(context)),
-        children: [
-          // System tokens demo
-          Text('System Tokens', style: md.typ.getHeadlineSmall(context)),
-          SizedBox(height: md.space.small(context)),
-          Wrap(
-            spacing: md.space.small(context),
-            runSpacing: md.space.small(context),
-            children: [
-              _ColorChip(name: 'Primary', color: md.sys.primary),
-              _ColorChip(name: 'On Primary', color: md.sys.onPrimary),
-              _ColorChip(name: 'Success', color: md.sys.success),
-              _ColorChip(name: 'On Success', color: md.sys.onSuccess),
-              _ColorChip(name: 'Warning', color: md.sys.warning),
-              _ColorChip(name: 'On Warning', color: md.sys.onWarning),
-              _ColorChip(name: 'Info', color: md.sys.info),
-              _ColorChip(name: 'On Info', color: md.sys.onInfo),
-              _ColorChip(name: 'Background', color: md.sys.background),
-              _ColorChip(name: 'On Background', color: md.sys.onBackground),
-              _ColorChip(name: 'Surface', color: md.sys.surface),
-              _ColorChip(name: 'On Surface', color: md.sys.onSurface),
-              _ColorChip(name: 'Error', color: md.sys.error),
-              _ColorChip(name: 'On Error', color: md.sys.onError),
-            ],
-          ),
-          const Divider(height: 32),
-
-          // Base tokens demo
-          Text('Base Tokens', style: md.typ.getHeadlineSmall(context)),
-          SizedBox(height: md.space.small(context)),
-
-          // Typography
-          Text('Typography: Headline Medium', style: md.typ.getHeadlineMedium(context)),
-          SizedBox(height: md.space.small(context)),
-
-          // Spacing + Shape + Elevation
-          Container(
-            padding: md.space.allMedium(context),
-            decoration: BoxDecoration(
-              color: md.sys.surface,
-              borderRadius: md.sha.borderRadiusMedium,
-              boxShadow: md.elevation.getShadows(3),
-              border: Border.all(color: md.sys.outline),
+      body: SingleChildScrollView(
+        child: Column(
+          //  padding: EdgeInsets.all(md.space.medium(context)),
+          children: [
+            // System tokens demo
+            Text('System Tokens', style: md.typ.getHeadlineSmall(context)),
+            SizedBox(height: md.space.small(context)),
+            Wrap(
+              spacing: md.space.small(context),
+              runSpacing: md.space.small(context),
+              children: [
+                _ColorChip(name: 'Primary', color: md.sys.primary),
+                _ColorChip(name: 'On Primary', color: md.sys.onPrimary),
+                _ColorChip(name: 'Success', color: md.sys.success),
+                _ColorChip(name: 'On Success', color: md.sys.onSuccess),
+                _ColorChip(name: 'Warning', color: md.sys.warning),
+                _ColorChip(name: 'On Warning', color: md.sys.onWarning),
+                _ColorChip(name: 'Info', color: md.sys.info),
+                _ColorChip(name: 'On Info', color: md.sys.onInfo),
+                _ColorChip(name: 'Background', color: md.sys.background),
+                _ColorChip(name: 'On Background', color: md.sys.onBackground),
+                _ColorChip(name: 'Surface', color: md.sys.surface),
+                _ColorChip(name: 'On Surface', color: md.sys.onSurface),
+                _ColorChip(name: 'Error', color: md.sys.error),
+                _ColorChip(name: 'On Error', color: md.sys.onError),
+              ],
             ),
-            child: Text(
-              'Container with spacing, shape, elevation',
-              style: md.typ.getBodyMedium(context),
-            ),
-          ),
-          SizedBox(height: md.space.medium(context)),
+            const Divider(height: 32),
 
-          // Motion
-          _MotionDemo(
-            duration: md.motion.durationMedium,
-            curve: md.motion.curveStandard,
-            color: md.sys.tertiary,
-            onColor: md.sys.onTertiary,
-          ),
+            // Base tokens demo
+            Text('Base Tokens', style: md.typ.getHeadlineSmall(context)),
+            SizedBox(height: md.space.small(context)),
 
-          const Divider(height: 32),
+            // Typography
+            Text('Typography: Headline Medium', style: md.typ.getHeadlineMedium(context)),
+            SizedBox(height: md.space.small(context)),
 
-          // Component tokens demo
-          Text('Component Tokens', style: md.typ.getHeadlineSmall(context)),
-          SizedBox(height: md.space.small(context)),
-
-          // Card styled by component tokens
-          Container(
-            decoration: BoxDecoration(
-              color: md.com.card.backgroundColor,
-              borderRadius: md.sha.borderRadiusMedium,
-              border: Border.all(color: md.com.card.borderColor),
-            ),
-            child: Padding(
+            // Spacing + Shape + Elevation
+            Container(
               padding: md.space.allMedium(context),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Card Title', style: md.com.card.titleTextStyle),
-                  SizedBox(height: md.space.small(context)),
-                  Text(
-                    'Card subtitle styled via component tokens',
-                    style: md.com.card.subtitleTextStyle,
-                  ),
-                ],
+              decoration: BoxDecoration(
+                color: md.sys.surface,
+                borderRadius: md.sha.borderRadiusMedium,
+                boxShadow: md.elevation.getShadows(3),
+                border: Border.all(color: md.sys.outline),
+              ),
+              child: Text(
+                'Container with spacing, shape, elevation',
+                style: md.typ.getBodyMedium(context),
               ),
             ),
-          ),
-          SizedBox(height: md.space.medium(context)),
+            SizedBox(height: md.space.medium(context)),
 
-          // Button styled by component tokens
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(
-                  md.com.button.elevatedButtonBackgroundColor,
-                ),
-                foregroundColor: WidgetStatePropertyAll(
-                  md.com.button.elevatedButtonForegroundColor,
-                ),
-                textStyle: WidgetStatePropertyAll(md.com.button.textStyle),
-              ),
-              onPressed: () {},
-              child: const Text('Elevated Button'),
+            // Motion
+            _MotionDemo(
+              duration: md.motion.durationMedium,
+              curve: md.motion.curveStandard,
+              color: md.sys.tertiary,
+              onColor: md.sys.onTertiary,
             ),
-          ),
-        ],
+
+            const Divider(height: 32),
+
+            // Component tokens demo
+            Text('Component Tokens', style: md.typ.getHeadlineSmall(context)),
+            SizedBox(height: md.space.small(context)),
+
+            // Card styled by component tokens
+            Container(
+              decoration: BoxDecoration(
+                color: md.com.card.backgroundColor,
+                borderRadius: md.sha.borderRadiusMedium,
+                border: Border.all(color: md.com.card.borderColor),
+              ),
+              child: Padding(
+                padding: md.space.allMedium(context),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Card Title', style: md.com.card.titleTextStyle),
+                    SizedBox(height: md.space.small(context)),
+                    Text(
+                      'Card subtitle styled via component tokens',
+                      style: md.com.card.subtitleTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: md.space.medium(context)),
+
+            // Buttons
+            Text('Buttons', style: md.typ.getHeadlineSmall(context)),
+            SizedBox(height: md.space.small(context)),
+            PrimaryButton(onPressed: () {}, child: const Text('Primary Button')),
+            SizedBox(height: md.space.small(context)),
+
+            SizedBox(height: md.space.small(context)),
+            SecondaryButton(onPressed: () {}, child: const Text('Secondary Button')),
+            SizedBox(height: md.space.medium(context)),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

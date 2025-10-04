@@ -35,6 +35,8 @@ class SecondaryButton extends StatelessWidget {
             shape: overrideConfig!.shape,
             side: overrideConfig!.side,
             iconGap: overrideConfig!.iconGap,
+            minimumSize: overrideConfig!.minimumSize, // Added minimumSize override
+            maximumSize: overrideConfig!.maximumSize, // Added maximumSize override
           )
         : baseConfig;
 
@@ -51,6 +53,12 @@ class SecondaryButton extends StatelessWidget {
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(
+          finalConfig.minimumSize,
+        ), // Added minimumSize
+        maximumSize: WidgetStateProperty.all(
+          finalConfig.maximumSize,
+        ), // Added maximumSize
         backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),
         foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),
         overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),

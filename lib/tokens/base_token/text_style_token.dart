@@ -45,4 +45,14 @@ class TextStyleToken {
       height: height,
     );
   }
+
+  /// Returns a new [TextStyleToken] with the [fontSize] scaled by the given [factor].
+  TextStyleToken scale(double factor) {
+    return TextStyleToken(
+      fontSize: fontSize * factor,
+      fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
+      height: height,
+    );
+  }
 }

@@ -16,15 +16,20 @@ class AppButtonConfig {
     this.side,
     this.shape,
     this.iconGap,
+    this.maximumSize,
+    this.minimumSize, // Added minimumSize property
   });
+
   final Color? backgroundColor;
   final Color? foregroundColor;
-  final Color? overlayColor; 
+  final Color? overlayColor;
   final double? elevation;
   final EdgeInsetsGeometry? padding;
   final TextStyle? textStyle;
   final BorderSide? side;
   final ShapeBorder? shape;
+  final Size? maximumSize;
+  final Size? minimumSize; // Added minimumSize property
 
   /// Horizontal space between icon and text when both are present
   final double? iconGap;
@@ -40,6 +45,8 @@ class AppButtonConfig {
     BorderSide? side,
     ShapeBorder? shape,
     double? iconGap,
+    Size? maximumSize,
+    Size? minimumSize, // Added minimumSize parameter
   }) {
     return AppButtonConfig(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -51,6 +58,8 @@ class AppButtonConfig {
       side: side ?? this.side,
       shape: shape ?? this.shape,
       iconGap: iconGap ?? this.iconGap,
+      maximumSize: maximumSize ?? this.maximumSize,
+      minimumSize: minimumSize ?? this.minimumSize, // Added minimumSize assignment
     );
   }
 }

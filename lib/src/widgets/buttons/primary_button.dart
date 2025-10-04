@@ -29,12 +29,14 @@ class PrimaryButton extends StatelessWidget {
             backgroundColor: overrideConfig!.backgroundColor,
             foregroundColor: overrideConfig!.foregroundColor,
             overlayColor: overrideConfig!.overlayColor,
-            elevation: overrideConfig!.elevation,
+            
             padding: overrideConfig!.padding,
             textStyle: overrideConfig!.textStyle,
             shape: overrideConfig!.shape,
             side: overrideConfig!.side,
             iconGap: overrideConfig!.iconGap,
+            minimumSize: overrideConfig!.minimumSize, // Added minimumSize override
+            maximumSize: overrideConfig!.maximumSize, // Added maximumSize override
           )
         : baseConfig;
 
@@ -51,6 +53,8 @@ class PrimaryButton extends StatelessWidget {
     final button = ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        minimumSize: WidgetStateProperty.all(finalConfig.minimumSize),
+        maximumSize: WidgetStateProperty.all(finalConfig.maximumSize),
         backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),
         foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),
         overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),
