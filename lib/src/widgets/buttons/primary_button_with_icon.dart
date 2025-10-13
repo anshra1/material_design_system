@@ -1,102 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_system/src/widgets/buttons/config/app_button_config.dart';
-import 'package:material_design_system/src/widgets/buttons/config/app_button_themes.dart';
+import 'package:material_design_system/material_design_system.dart';
 
-/// Defines the position of the icon relative to the text within the button.
-enum ButtonIconPosition {
-  /// The icon is placed to the left of the text.
-  left,
+enum IconPosition { left, right, none }
 
-  /// The icon is placed to the right of the text.
-  right,
-}
-
-/// A reusable, configuration-driven primary button that supports an icon.
 class PrimaryButtonWithIcon extends StatelessWidget {
   const PrimaryButtonWithIcon({
     required this.onPressed,
     required this.text,
-    super.key,
+    this.toolTipText = '',
     this.icon,
-    this.iconPosition = ButtonIconPosition.left,
-    this.tooltip,
-    this.overrideConfig,
+    this.iconPosition = IconPosition.none,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.elevation,
+    this.borderRadius,
+    this.textStyle,
+    this.padding = EdgeInsets.zero,
+    this.size,
+    super.key,
   });
 
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
   final String text;
   final Widget? icon;
-  final ButtonIconPosition iconPosition;
-  final String? tooltip;
-  final AppButtonConfig? overrideConfig;
+  final IconPosition iconPosition;
+  final TextStyle? textStyle;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? elevation;
+  final double? borderRadius;
+  final EdgeInsets padding;
+  final String toolTipText;
+  final Size? size;
 
   @override
   Widget build(BuildContext context) {
-    // 1. Get the base configuration from the theme factory.
-    final baseConfig = AppButtonThemes.primary(context);
+    final md = MdTheme.of(context);
+    return Tooltip(
+      message: toolTipText,
+      child: Padding(
+        padding: padding,
+        child: SizedBox(
+          width: size != null ? size!.width : double.infinity,
+          height: size != null ? size!.height : 36,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(
+                backgroundColor ?? md.com.button.elevatedButtonBackgroundColor,
+              ),
+              foregroundColor: WidgetStateProperty.all(
+                foregroundColor ?? md.com.button.elevatedButtonForegroundColor,
+              ),
+              elevation: WidgetStateProperty.all(elevation ?? md.elevation.level0),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? md.sha.cornerLarge),
+                ),
+              ),
+              padding: WidgetStateProperty.all(EdgeInsets.zero),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (iconPosition == IconPosition.left) ...[
+                  icon ?? const SizedBox.shrink(),
+                  SizedBox(width: md.space.small(context)),
+                ],
 
-    // 2. Apply any local overrides provided by the developer.
-    final finalConfig = overrideConfig != null
-        ? baseConfig.copyWith(
-            backgroundColor: overrideConfig!.backgroundColor,
-            foregroundColor: overrideConfig!.foregroundColor,
-            overlayColor: overrideConfig!.overlayColor,
-            elevation: overrideConfig!.elevation,
-            padding: overrideConfig!.padding,
-            textStyle: overrideConfig!.textStyle,
-            shape: overrideConfig!.shape,
-            side: overrideConfig!.side,
-            iconGap: overrideConfig!.iconGap,
-          )
-        : baseConfig;
-
-    // 3. Validate the shape configuration.
-    final finalShape = finalConfig.shape;
-    if (finalShape != null && finalShape is! OutlinedBorder) {
-      throw ArgumentError(
-        'PrimaryButtonWithIcon received a shape of type ${finalShape.runtimeType}, which is not an OutlinedBorder. '
-        'ElevatedButton requires an OutlinedBorder. For other shapes, consider creating a dedicated component.',
-      );
-    }
-
-    // 4. Build the button content.
-    final iconGap = finalConfig.iconGap ?? 8.0;
-    final textWidget = Text(text); // ButtonStyle will handle the text style
-    final children = <Widget>[];
-    if (icon != null) {
-      final iconSpacing = SizedBox(width: iconGap);
-      if (iconPosition == ButtonIconPosition.left) {
-        children.addAll([icon!, iconSpacing, textWidget]);
-      } else {
-        children.addAll([textWidget, iconSpacing, icon!]);
-      }
-    } else {
-      children.add(textWidget);
-    }
-
-    // 5. Render the final button using the resolved configuration.
-    final button = ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        minimumSize: WidgetStateProperty.all(finalConfig.maximumSize),
-        maximumSize: WidgetStateProperty.all(finalConfig.maximumSize),
-        backgroundColor: WidgetStateProperty.all(finalConfig.backgroundColor),
-        foregroundColor: WidgetStateProperty.all(finalConfig.foregroundColor),
-        overlayColor: WidgetStateProperty.all(finalConfig.overlayColor),
-        elevation: WidgetStateProperty.all(finalConfig.elevation),
-        padding: WidgetStateProperty.all(finalConfig.padding),
-        textStyle: WidgetStateProperty.all(finalConfig.textStyle),
-        shape: WidgetStateProperty.all(finalShape as OutlinedBorder?),
-        side: WidgetStateProperty.all(finalConfig.side),
+                //
+                if (iconPosition != IconPosition.none) const SizedBox.shrink(),
+                //
+                Text(
+                  text,
+                  style: (textStyle ?? md.com.button.textStyle).copyWith(
+                    color: foregroundColor,
+                  ),
+                ),
+                //
+                if (iconPosition == IconPosition.right) ...[
+                  SizedBox(width: md.space.small(context)),
+                  icon ?? const SizedBox.shrink(),
+                ],
+              ],
+            ),
+          ),
+        ),
       ),
-      child: Row(mainAxisSize: MainAxisSize.min, children: children),
     );
-
-    // 6. Apply tooltip if provided.
-    if (tooltip != null) {
-      return Tooltip(message: tooltip, child: button);
-    }
-
-    return button;
   }
 }

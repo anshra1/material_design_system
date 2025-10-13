@@ -18,3 +18,4 @@ dev_dependencies:
   very_good_analysis: ^5.1.0
   flutter_test:
     sdk: flutter
+  dart_code_metrics: ^5.7.0
